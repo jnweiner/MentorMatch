@@ -1,10 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-const App = () => (
-  <div>
-    I am a react test
-  </div>
-);
+import App from './components/App.jsx';
 
 ReactDOM.render(<App />, document.getElementById('app'));
