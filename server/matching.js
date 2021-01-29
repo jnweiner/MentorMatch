@@ -36,6 +36,36 @@ let mentees = [
     }
   },
   {
+    id: 3,
+    firstName: 'Andy',
+    lastName: 'Jenkins',
+    email: 'email@email.com',
+    org_id: 7,
+    paired: false,
+    attributes: {
+      location: {
+        choices: ['Seattle'],
+        priority: 2,
+        comments: 'words words'
+      },
+      gender: {
+        choices: ['woman', 'man', 'nonbinary'],
+        priority: 2,
+        comments: 'words words'
+      },
+      focus: {
+        choices: ['frontend', 'full-stack', 'backend'],
+        priority: 2,
+        comments: 'words words'
+      },
+      companySize: {
+        choices: ['1-50', '50-100', '100-200', '200-500', '500+'],
+        priority: 2, 
+        comments: 'words words'
+      }
+    }
+  },
+  {
     id: 1,
     firstName: 'Jane',
     lastName: 'Smith',
@@ -149,14 +179,15 @@ const createMatches = (mentees, attributes, mentors) => {
   // if mentor already taken, compare score for that mentor with existing match's score
   // if higher, override that existing match, and existing match will get matched again
   // if lower, pass through function again, this time at the next mentor ranking index (second choice, third, etc)
-  
+
   const makeMatch = (menteeId, mentorRankIdx) => {
+    if (mentorRankIdx === mentors.length) {
+      results.unmatchedMentees.push(menteeId);
+      return;
+    }
     const topMentorId = rankings[menteeId].rankedMentors[mentorRankIdx].mentorId;
     if (!results.matches[topMentorId]) {
       results.matches[topMentorId] = menteeId;
-      return;
-    } else if (mentorRankIdx === mentors.length) {
-      results.unmatchedMentees.push(menteeId);
       return;
     } else {
       let existingMatchId = results.matches[topMentorId]
@@ -170,7 +201,7 @@ const createMatches = (mentees, attributes, mentors) => {
   };
 
   for (let menteeId in rankings) {
-    makeMatch(menteeId, 0)
+    makeMatch(menteeId, 0);
   }
 
   return results;
