@@ -1,19 +1,23 @@
 const mongoose = require('mongoose');
 
 const participantSchema = new mongoose.Schema({
-  status: String,
+  status: {
+    type: String,
+    enum: ['mentor', 'mentee']
+  },
   firstName: String,
   lastName: String,
   email: String,
-  org_id: String,
-  paired: {
-    type: Boolean,
-    default: false
+  org_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Org"
   },
-  match_id: {
-    type: String,
-    default: ''
-  },
+  matchs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Participant"
+    }
+  ],
   attributes: mongoose.Schema.Types.Mixed,
   additionalInfo: mongoose.Schema.Types.Mixed
 });

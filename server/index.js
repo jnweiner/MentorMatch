@@ -17,6 +17,8 @@ app.post('/api/admins', admin.add);
 app.post('/api/orgs', org.add);
 app.post('/api/participants', participant.add);
 
+app.patch('/api/participants', participant.update);
+
 
 const port = 3000;
 

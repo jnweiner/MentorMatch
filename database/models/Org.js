@@ -5,7 +5,12 @@ const orgSchema = new mongoose.Schema({
   attributes: Array,
   mentorQuestions: Array,
   menteeQuestions: Array,
-  admin_id: String
+  admins: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Admin"
+    }
+  ]
 });
 
 const Org = mongoose.model('Org', orgSchema);
