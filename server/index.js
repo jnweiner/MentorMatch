@@ -11,7 +11,7 @@ const participant = require('./controllers/Participant.js');
 const app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../client/public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.post('/api/admins', admin.add);
 app.post('/api/orgs', org.add);
